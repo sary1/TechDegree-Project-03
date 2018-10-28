@@ -152,3 +152,28 @@ $(".activities label input").change( function(e){
         }
     }
 });
+
+
+/********************************
+*********************************
+    "Payment Info" section
+*********************************
+********************************/
+
+
+function hidePayments(){
+    $('#credit-card').hide();
+    $('#paypal').hide();
+    $('#bitcoin').hide();
+}
+
+hidePayments();
+
+$('#payment').on('change', (e) => {
+    hidePayments();
+    $('option[value="select_method"]').hide();
+    if(e.target.value === 'credit card') $('#credit-card').show();
+    if(e.target.value === 'paypal') $('#paypal').show();
+    if(e.target.value === 'bitcoin') $('#bitcoin').show();
+})
+
