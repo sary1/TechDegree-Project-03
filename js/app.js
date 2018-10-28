@@ -58,22 +58,39 @@ $('#design').change(e => {
 
 // Activities total cost
 let cost = "Total: $";
-let totalCost;
+let totalCost, costMatch, timeMatch;
+let tuesday = [];
+let wednesday = [];
 const costRegex = /\d{3}/;
-let match;
+const timeRegex = /\w+ \d\d?\wm-\d\d?\wm/;
 let costChild = '<p>' + cost + totalCost + '</p>';
 $('.activities label input').on('click', (e) => {
+    // Delete the previous cost Node
     if($('.activities p')){
         $('.activities p').remove();
     }
+
+    // Extract day and time of every workshop
+    if(e.target.parentNode.textContent != " Main Conference — $200"){
+        timeMatch = timeRegex.exec(e.target.parentNode.textContent)[0];
+        timeMatch = timeMatch.split(" ");
+        console.log(timeMatch);
+    }
+
     totalCost = 0;
     $('.activities label input').each((index, element) => {
+        // Calculating the total cost
+        elementText = element.parentNode.textContent;
         if (element.checked){
-            elementText = element.parentNode.textContent;
-            match = costRegex.exec(elementText);
-            totalCost += parseInt(match);
+            costMatch = costRegex.exec(elementText);
+            totalCost += parseInt(costMatch);
         }
     })
+    // Appending the cost to the activities fieldset
     costChild = '<p>' + cost + totalCost + '</p>';
     $('.activities').append(costChild);
 })
+
+
+// timeMatch = timeRegex.exec(elementText);
+// console.log(timeMatch);

@@ -61,3 +61,20 @@ function replaceText(){
 replaceText();
 */
 
+/*
+$('.activities label input').on('click', (e) => {
+    if($('.activities p')){
+        $('.activities p').remove();
+    }
+    totalCost = 0;
+    $('.activities label input').each((index, element) => {
+        if (element.checked){
+            elementText = element.parentNode.textContent;
+            costMatch = costRegex.exec(elementText);
+            totalCost += parseInt(costMatch);
+        }
+    })
+    costChild = '<p>' + cost + totalCost + '</p>';
+    $('.activities').append(costChild);
+})
+*/
