@@ -29,3 +29,38 @@ $('#title').change(e => {
         $('#other-title').show();
     }
 })
+
+
+// Hide color until design is selected
+$('#colors-js-puns').hide();
+
+$('#design').change(e => {
+    const tshirt = e.target.value;
+    const jsPuns = /^\w+ (\w+ )?(\w+ )?[(]JS Puns shirt only[)]$/;
+    const loveJs = /^\w+ (\w+ )?(\w+ )?[(]I . JS shirt only[)]$/;
+    const jsPunsReplace = /[(]JS Puns shirt only[)]/;
+    const loveJsReplace = /[(]I . JS shirt only[)]/;
+
+    function show(design){
+        $('#color').children().each((index, tshirtColor) => {
+            $(tshirtColor).attr("selected",false);
+            let colorName = $(tshirtColor).text();
+            if (design === 'js puns'){
+                !jsPuns.test(colorName) ? $(tshirtColor).hide() : $(tshirtColor).show();
+            } else {
+                jsPuns.test(colorName) ? $(tshirtColor).hide() : $(tshirtColor).show();
+            }
+        })
+    }
+
+    if (tshirt === 'js puns') {
+        show('js puns');
+        $('option[value="cornflowerblue"]').attr("selected",true);
+    } else {
+        show('loveJs');
+        $('option[value="tomato"]').attr("selected",true);
+    }
+
+    $('#colors-js-puns').show();
+})
+

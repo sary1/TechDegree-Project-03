@@ -91,7 +91,8 @@ input, textarea {
 	outline: none;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
 	background: #fff;
 	border-color: #5e97b0;
 	transition: border-color .4s, background-color .4s;
