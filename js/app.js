@@ -4,20 +4,6 @@ $(document).ready(() => {
     $('form fieldset #name').focus();
 })
 
-
-// Creating a textarea and appending it directly to the DOM
-// with required attributes using jQuery for practice
-/*
-const $textArea = $("<textarea></textarea>");
-$textArea.attr('id', 'other-title');
-$textArea.attr('placeholder', 'Your Job Role');
-    // pushing the text area to a new line by adding (break line)
-$('#title').parent().append("<br>");
-$('#title').parent().append($textArea);
-    // hiding the textarea until the user selects (other) option
-    $textArea.hide();
-*/
-
 // Hide the textarea until the (other) option is selected from
 // the job role options
 $('#other-title').hide();
@@ -41,6 +27,10 @@ $('#design').change(e => {
     const jsPunsReplace = /[(]JS Puns shirt only[)]/;
     const loveJsReplace = /[(]I . JS shirt only[)]/;
 
+    // hide the default selection option
+    $('#design').children().eq(0).hide();
+
+    // match the color with the design
     function show(design){
         $('#color').children().each((index, tshirtColor) => {
             $(tshirtColor).attr("selected",false);
@@ -65,3 +55,25 @@ $('#design').change(e => {
     $('#colors-js-puns').show();
 })
 
+
+// Activities total cost
+let cost = "Total: $";
+let totalCost;
+const costRegex = /\d{3}/;
+let match;
+let costChild = '<p>' + cost + totalCost + '</p>';
+$('.activities label input').on('click', (e) => {
+    if($('.activities p')){
+        $('.activities p').remove();
+    }
+    totalCost = 0;
+    $('.activities label input').each((index, element) => {
+        if (element.checked){
+            elementText = element.parentNode.textContent;
+            match = costRegex.exec(elementText);
+            totalCost += parseInt(match);
+        }
+    })
+    costChild = '<p>' + cost + totalCost + '</p>';
+    $('.activities').append(costChild);
+})

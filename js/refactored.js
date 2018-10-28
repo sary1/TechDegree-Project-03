@@ -1,3 +1,17 @@
+// Creating a textarea and appending it directly to the DOM
+// with required attributes using jQuery for practice
+/*
+const $textArea = $("<textarea></textarea>");
+$textArea.attr('id', 'other-title');
+$textArea.attr('placeholder', 'Your Job Role');
+    // pushing the text area to a new line by adding (break line)
+$('#title').parent().append("<br>");
+$('#title').parent().append($textArea);
+    // hiding the textarea until the user selects (other) option
+    $textArea.hide();
+*/
+
+
 // colorName = colorName.replace(jsPunsReplace, '');
 // $(tshirtColor).text(colorName);
 // colorName = colorName.replace(loveJsReplace, '');
