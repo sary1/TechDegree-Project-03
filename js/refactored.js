@@ -78,3 +78,42 @@ $('.activities label input').on('click', (e) => {
     $('.activities').append(costChild);
 })
 */
+
+
+
+/*
+    if(".activities :unchecked"){
+        timeMatch = timeRegex.exec($(e.target).parent().text())[0];
+        console.log(timeMatch)
+        $('.activities label input').each((index, element) => {
+            if(index >= 1){
+                if(timeRegex.exec($(element).parent().text())[0] === timeMatch){
+                    $(element).prop('disabled', false);
+                    $(element).parent().css("text-decoration", "none");
+                }
+            }
+        })
+        // console.log($(e.target).parent().text());
+    }
+*/
+
+/*
+    if(".activities :unchecked"){
+        console.log("111", busy);
+        timeMatch = timeRegex.exec($(e.target).parent().text())[0];
+        busy.splice($.inArray(timeMatch, busy),1);
+        // $('.activities label input').each((index, element) => {
+
+        // })
+        console.log("000", busy);
+    }
+*/
+
+/*
+   // if( $(this).is(':checked') ){
+   //      timeMatch = timeRegex.exec($(e.target).parent().text())[0];
+   //      busy.push(timeMatch);
+   //      // console.log(e.target, 'checked');
+   //      console.log(timeMatch)
+   // }
+*/

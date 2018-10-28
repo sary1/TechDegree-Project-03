@@ -1,8 +1,23 @@
+/********************************
+*********************************
+Set focus on the first text field
+*********************************
+********************************/
+
+
 // Making actions on page load (when the document is ready)
 $(document).ready(() => {
     // setting the focus on the name input field
     $('form fieldset #name').focus();
 })
+
+
+/********************************
+*********************************
+      ”Job Role” section
+*********************************
+********************************/
+
 
 // Hide the textarea until the (other) option is selected from
 // the job role options
@@ -15,6 +30,13 @@ $('#title').change(e => {
         $('#other-title').show();
     }
 })
+
+
+/********************************
+*********************************
+      ”T-Shirt Info” section
+*********************************
+********************************/
 
 
 // Hide color until design is selected
@@ -56,25 +78,25 @@ $('#design').change(e => {
 })
 
 
+/********************************
+*********************************
+”Register for Activities” section
+*********************************
+********************************/
+
+
 // Activities total cost
 let cost = "Total: $";
-let totalCost, costMatch, timeMatch;
-let tuesday = [];
-let wednesday = [];
+let totalCost, costMatch, timeMatch, timeCompare;
+let busy = [];
 const costRegex = /\d{3}/;
 const timeRegex = /\w+ \d\d?\wm-\d\d?\wm/;
 let costChild = '<p>' + cost + totalCost + '</p>';
 $('.activities label input').on('click', (e) => {
+
     // Delete the previous cost Node
     if($('.activities p')){
         $('.activities p').remove();
-    }
-
-    // Extract day and time of every workshop
-    if(e.target.parentNode.textContent != " Main Conference — $200"){
-        timeMatch = timeRegex.exec(e.target.parentNode.textContent)[0];
-        timeMatch = timeMatch.split(" ");
-        console.log(timeMatch);
     }
 
     totalCost = 0;
@@ -92,5 +114,41 @@ $('.activities label input').on('click', (e) => {
 })
 
 
-// timeMatch = timeRegex.exec(elementText);
-// console.log(timeMatch);
+// Prevent user from scheduling two workshops at the same time
+$(".activities label input").change( function(e){
+    let ischecked= $(this).is(':checked');
+    if(e.target.parentNode.textContent !== " Main Conference — $200"){
+        // extracting the time of the workshop
+        timeMatch = timeRegex.exec($(e.target).parent().text())[0];
+        if(ischecked){
+            // add the time to the user's scheduled workshop array "busy"
+            busy.push(timeMatch);
+            // loop over other workshops to hide the competing activities
+            $('.activities label input').each((index, element) => {
+                elementText = element.parentNode.textContent;
+                if(!element.checked && index >= 1){
+                    timeCompare = timeRegex.exec($(element).parent().text())[0];
+                    if(busy.indexOf(timeCompare) > -1){
+                        $(element).prop('disabled', true);
+                        $(element).parent().css("text-decoration", "line-through");
+                        $(element).parent().css("color", "gray");
+                    }
+                }
+            })
+        } else {
+            // if the user uncheck a workshop remove its time from "busy" array
+            busy.splice($.inArray(timeMatch, busy),1);
+            // loop over other workshops to reshow the competing activities
+            $('.activities label input').each((index, element) => {
+                if (index >= 1){
+                    timeCompare = timeRegex.exec($(element).parent().text())[0];
+                    if (busy.indexOf(timeCompare) === -1){
+                        $(element).prop('disabled', false);
+                        $(element).parent().css("text-decoration", "none");
+                        $(element).parent().css("color", "black");
+                    }
+                }
+            })
+        }
+    }
+});
