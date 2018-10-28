@@ -61,6 +61,7 @@ $('#design').change(e => {
         $('option[value="tomato"]').attr("selected",true);
     }
 
+    // Bring the colors div back to the screen
     $('#colors-js-puns').show();
 })
 
