@@ -177,3 +177,85 @@ $('#payment').on('change', (e) => {
     if(e.target.value === 'bitcoin') $('#bitcoin').show();
 })
 
+
+/********************************
+*********************************
+        Form validation
+*********************************
+********************************/
+
+
+function validNameInput(){
+    let inputValue = $('#name').val();
+    const nameError = "<p class='nameWarning'>Name is required</p>";
+    if(!inputValue && $('.nameWarning').length === 0){
+        $('#name').css('border', '2px solid red');
+        $('#name').after(nameError);
+    }
+    if(inputValue && $('.nameWarning').length > 0) {
+        $('#name').css('border', 'none');
+        $('.nameWarning').remove();
+    }
+}
+
+function validMailInput(){
+    const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i
+    const mailVal = emailRegex.test($('#mail').val());
+    const mailError = "<p class='mailWarning'>Email is not valid</p>";
+    if(!mailVal && $('.mailWarning').length === 0){
+        $('#mail').css('border', '2px solid red');
+        $('#mail').after(mailError);
+    }
+    if(mailVal && $('.mailWarning').length > 0) {
+        $('#mail').css('border', 'none');
+        $('.mailWarning').remove();
+    }
+}
+
+function validActivityInput(){
+    let activity = [];
+    const activityError = "<p class='activityWarning'>At least one activity must be selected</p>";
+    $('.activities label input').each((index, element) => {
+        activity.push(element.checked);
+    })
+    console.log(activity.indexOf(true) === -1);
+    if (activity.indexOf(true) === -1){
+        $('.activities').after(activityError);
+    } else {
+        $('.activityWarning').remove();
+    }
+}
+
+$('button[type="submit"]').on('click', (e) => {
+
+    // prevent the default page reload
+    e.preventDefault();
+
+    // getting input value
+    validNameInput();
+
+    // assure the email is a valid one
+    validMailInput();
+
+    // user must check at least one checkbox activity
+    validActivityInput();
+
+    // Payment verification
+    let validNum, validZip, validCvv;
+    const numRegex = /^\d{13,16}$/;
+    const zipRegex = /^\d{5}$/;
+    const cvvRegex = /^\d{3}$/;
+    if($('#payment').val() === "credit card"){
+        console.log("Number valid: ", numRegex.test($('#cc-num').val()));
+        console.log("Zip valid: ", zipRegex.test($('#zip').val()));
+        console.log("CVV valid: ", cvvRegex.test($('#cvv').val()));
+    }
+
+    // console.log("Input value = ", inputValue);
+    // console.log("Mail validity: ", mailVal);
+    // console.log("Checked activity exists: ", activity.indexOf(true));
+    // console.log(activity)
+    window.scrollTo(0, 0);
+})
+
+
