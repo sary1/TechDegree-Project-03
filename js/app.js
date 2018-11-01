@@ -218,12 +218,61 @@ function validActivityInput(){
     $('.activities label input').each((index, element) => {
         activity.push(element.checked);
     })
-    console.log(activity.indexOf(true) === -1);
-    if (activity.indexOf(true) === -1){
+    if (activity.indexOf(true) === -1 && $('.activityWarning').length === 0){
         $('.activities').after(activityError);
-    } else {
+    }
+    if (activity.indexOf(true) !== -1 && $('.activityWarning').length > 0){
         $('.activityWarning').remove();
     }
+}
+
+function validCardNum(numRegex, creditCardNumError){
+    if(!numRegex.test($('#cc-num').val()) && $('.creditCardNumWarning').length === 0){
+        $('#cc-num').css('border', '2px solid red');
+        $('#credit-card').after(creditCardNumError);
+    }
+    if(numRegex.test($('#cc-num').val()) && $('.creditCardNumWarning').length > 0){
+        $('#cc-num').css('border', 'none');
+        $('.creditCardNumWarning').remove();
+    }
+}
+
+function validCardZip(zipRegex, creditCardZipError){
+    if(!zipRegex.test($('#zip').val()) && $('.creditCardZipWarning').length === 0){
+        $('#zip').css('border', '2px solid red');
+        $('#credit-card').after(creditCardZipError);
+    }
+    if(zipRegex.test($('#zip').val()) && $('.creditCardZipWarning').length > 0){
+        $('#zip').css('border', 'none');
+        $('.creditCardZipWarning').remove();
+    }
+}
+
+function validCardCvv(cvvRegex, creditCardcvvError){
+    if(!cvvRegex.test($('#cvv').val()) && $('.creditCardCvvWarning').length === 0){
+        $('#cvv').css('border', '2px solid red');
+        $('#credit-card').after(creditCardcvvError);
+    }
+    if(cvvRegex.test($('#cvv').val()) && $('.creditCardCvvWarning').length > 0){
+        $('#cvv').css('border', 'none');
+        $('.creditCardCvvWarning').remove();
+    }
+}
+
+function validCreditCard(){
+    let validNum, validZip, validCvv;
+    const numRegex = /^\d{13,16}$/;
+    const zipRegex = /^\d{5}$/;
+    const cvvRegex = /^\d{3}$/;
+    const creditCardNumError = "<p class='creditCardNumWarning'>Credit Card number must be 13 - 16 digits</p>";
+    const creditCardZipError = "<p class='creditCardZipWarning'>Credit Card Zip number must be 5 digits</p>";
+    const creditCardCvvError = "<p class='creditCardCvvWarning'>Credit Card CVV number must be 3 digits</p>";
+    validCardCvv(cvvRegex, creditCardCvvError);
+    validCardZip(zipRegex, creditCardZipError);
+    validCardNum(numRegex, creditCardNumError);
+
+    // console.log("Zip valid: ", zipRegex.test($('#zip').val()));
+    // console.log("CVV valid: ", cvvRegex.test($('#cvv').val()));
 }
 
 $('button[type="submit"]').on('click', (e) => {
@@ -241,20 +290,10 @@ $('button[type="submit"]').on('click', (e) => {
     validActivityInput();
 
     // Payment verification
-    let validNum, validZip, validCvv;
-    const numRegex = /^\d{13,16}$/;
-    const zipRegex = /^\d{5}$/;
-    const cvvRegex = /^\d{3}$/;
     if($('#payment').val() === "credit card"){
-        console.log("Number valid: ", numRegex.test($('#cc-num').val()));
-        console.log("Zip valid: ", zipRegex.test($('#zip').val()));
-        console.log("CVV valid: ", cvvRegex.test($('#cvv').val()));
+        validCreditCard();
     }
 
-    // console.log("Input value = ", inputValue);
-    // console.log("Mail validity: ", mailVal);
-    // console.log("Checked activity exists: ", activity.indexOf(true));
-    // console.log(activity)
     window.scrollTo(0, 0);
 })
 

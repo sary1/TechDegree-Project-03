@@ -152,10 +152,15 @@ button:hover {
 }
 
 /* =================================
-  Error class
+  Error classes
 ==================================== */
 
-.nameWarning, .mailWarning, .activityWarning{
+.nameWarning,
+.mailWarning,
+.activityWarning,
+.creditCardNumWarning,
+.creditCardZipWarning,
+.creditCardCvvWarning {
 	color: white;
 	text-align: center;
 	background: rgba(231, 76, 60, 0.5);
