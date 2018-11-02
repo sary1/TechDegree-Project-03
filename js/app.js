@@ -265,6 +265,7 @@ function validCardCvv(cvvRegex, creditCardcvvError){
     }
 }
 
+// Check the credit card all inputs validation on Register
 let validNum, validZip, validCvv;
 const numRegex = /^\d{13,16}$/;
 const zipRegex = /^\d{5}$/;
@@ -273,7 +274,6 @@ const creditCardNumError = "<p class='creditCardNumWarning'>Credit Card number m
 const creditCardZipError = "<p class='creditCardZipWarning'>Credit Card Zip number must be 5 digits</p>";
 const creditCardCvvError = "<p class='creditCardCvvWarning'>Credit Card CVV number must be 3 digits</p>";
 
-// Check the credit card all inputs validation on Register
 function validCreditCard(){
     validCardCvv(cvvRegex, creditCardCvvError);
     validCardZip(zipRegex, creditCardZipError);
@@ -312,12 +312,15 @@ $('button[type="submit"]').on('click', (e) => {
 
 $('#name').on('focusout', () => {validNameInput();})
 
-$('#mail').on('focusout', () => {validMailInput();})
+$('#mail').on('input', () => {validMailInput();})
 
-$('#cc-num').on('focusout', () => {validCardNum(numRegex, creditCardNumError);})
+$('#cc-num').on('input', () => {validCardNum(numRegex, creditCardNumError);})
+$('#cc-num').on('keydown', () => {validCardNum(numRegex, creditCardNumError);})
 
-$('#zip').on('focusout', () => {validCardZip(zipRegex, creditCardZipError);})
+$('#zip').on('input', () => {validCardZip(zipRegex, creditCardZipError);})
+$('#zip').on('keydown', () => {validCardZip(zipRegex, creditCardZipError);})
 
-$('#cvv').on('focusout', () => {validCardCvv(cvvRegex, creditCardCvvError);})
+$('#cvv').on('input', () => {validCardCvv(cvvRegex, creditCardCvvError);})
+$('#cvv').on('keydown', () => {validCardCvv(cvvRegex, creditCardCvvError);})
 
 $('.activities label input').on('change', () => {$('.activityWarning').remove();});
