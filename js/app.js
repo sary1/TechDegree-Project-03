@@ -175,8 +175,14 @@ $('#payment').on('change', (e) => {
     if(e.target.value === 'credit card') $('#credit-card').show();
     if(e.target.value === 'paypal') $('#paypal').show();
     if(e.target.value === 'bitcoin') $('#bitcoin').show();
+    if($('.creditCardNumWarning')) $('.creditCardNumWarning').remove();
+    if($('.creditCardZipWarning')) $('.creditCardZipWarning').remove();
+    if($('.creditCardCvvWarning')) $('.creditCardCvvWarning').remove();
 })
 
+// credit card option is selected by default
+$('option[value="credit card"]').attr('selected', true);
+$('#credit-card').show();
 
 /********************************
 *********************************
@@ -336,17 +342,18 @@ $('button[type="submit"]').on('click', (e) => {
 
 
 $('#name').on('input', () => {validNameInput();})
-$('#name').on('focusout', () => {validNameInput();})
+$('#name').on('focus', () => {validNameInput();})
 
 $('#mail').on('input', () => {validMailInput();})
+$('#mail').on('focus', () => {validMailInput();})
 
 $('#cc-num').on('input', () => {validCardNum(numRegex, creditCardNumError);})
-$('#cc-num').on('keydown', () => {validCardNum(numRegex, creditCardNumError);})
+$('#cc-num').on('focus', () => {validCardNum(numRegex, creditCardNumError);})
 
 $('#zip').on('input', () => {validCardZip(zipRegex, creditCardZipError);})
-$('#zip').on('keydown', () => {validCardZip(zipRegex, creditCardZipError);})
+$('#zip').on('focus', () => {validCardZip(zipRegex, creditCardZipError);})
 
 $('#cvv').on('input', () => {validCardCvv(cvvRegex, creditCardCvvError);})
-$('#cvv').on('keydown', () => {validCardCvv(cvvRegex, creditCardCvvError);})
+$('#cvv').on('focus', () => {validCardCvv(cvvRegex, creditCardCvvError);})
 
 $('.activities label input').on('change', () => {$('.activityWarning').remove();});
