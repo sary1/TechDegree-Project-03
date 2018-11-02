@@ -203,7 +203,8 @@ function validNameInput(){
 function validMailInput(){
     const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i
     const mailVal = emailRegex.test($('#mail').val());
-    const mailError = "<p class='mailWarning'>Email is not valid</p>";
+    const mailError = "<p class='mailWarning'>Please enter an Email</p>";
+    const secMailError = "<p class='mailWarning'>Email is not valid</p>";
     if(!mailVal && $('.mailWarning').length === 0){
         $('#mail').css('border', '2px solid red');
         $('#mail').after(mailError);
@@ -310,9 +311,11 @@ $('button[type="submit"]').on('click', (e) => {
 ********************************/
 
 
+$('#name').on('input', () => {validNameInput();})
 $('#name').on('focusout', () => {validNameInput();})
 
 $('#mail').on('input', () => {validMailInput();})
+$('#mail').on('keydown', () => {validMailInput();})
 
 $('#cc-num').on('input', () => {validCardNum(numRegex, creditCardNumError);})
 $('#cc-num').on('keydown', () => {validCardNum(numRegex, creditCardNumError);})
