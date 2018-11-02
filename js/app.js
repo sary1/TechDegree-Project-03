@@ -293,10 +293,6 @@ function validCreditCard(){
     validCardCvv(cvvRegex, creditCardCvvError);
     validCardZip(zipRegex, creditCardZipError);
     validCardNum(numRegex, creditCardNumError);
-    if(validCardCvv(cvvRegex, creditCardCvvError) &&
-        validCardZip(zipRegex, creditCardZipError) &&
-        validCardNum(numRegex, creditCardNumError)){
-    }
 }
 
 $('button[type="submit"]').on('click', (e) => {
