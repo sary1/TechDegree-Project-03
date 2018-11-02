@@ -196,6 +196,7 @@ function validNameInput(){
     if(inputValue && $('.nameWarning').length > 0) {
         $('#name').css('border', 'none');
         $('.nameWarning').remove();
+        return true;
     }
 }
 
@@ -203,15 +204,16 @@ function validNameInput(){
 function validMailInput(){
     const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i
     const mailVal = emailRegex.test($('#mail').val());
-    const mailError = "<p class='mailWarning'>Please enter an Email</p>";
+    const mailError = "<p class='initMailWarning'>Please enter an Email</p>";
     const secMailError = "<p class='mailWarning'>Email is not valid</p>";
     if(!mailVal && $('.mailWarning').length === 0){
         $('#mail').css('border', '2px solid red');
-        $('#mail').after(mailError);
+        $('#mail').after(secMailError);
     }
     if(mailVal && $('.mailWarning').length > 0) {
         $('#mail').css('border', 'none');
         $('.mailWarning').remove();
+        return true;
     }
 }
 
@@ -227,6 +229,7 @@ function validActivityInput(){
     }
     if (activity.indexOf(true) !== -1 && $('.activityWarning').length > 0){
         $('.activityWarning').remove();
+        return true;
     }
 }
 
@@ -239,6 +242,7 @@ function validCardNum(numRegex, creditCardNumError){
     if(numRegex.test($('#cc-num').val()) && $('.creditCardNumWarning').length > 0){
         $('#cc-num').css('border', 'none');
         $('.creditCardNumWarning').remove();
+        return true;
     }
 }
 
@@ -251,6 +255,7 @@ function validCardZip(zipRegex, creditCardZipError){
     if(zipRegex.test($('#zip').val()) && $('.creditCardZipWarning').length > 0){
         $('#zip').css('border', 'none');
         $('.creditCardZipWarning').remove();
+        return true;
     }
 }
 
@@ -263,11 +268,11 @@ function validCardCvv(cvvRegex, creditCardcvvError){
     if(cvvRegex.test($('#cvv').val()) && $('.creditCardCvvWarning').length > 0){
         $('#cvv').css('border', 'none');
         $('.creditCardCvvWarning').remove();
+        return true;
     }
 }
 
 // Check the credit card all inputs validation on Register
-let validNum, validZip, validCvv;
 const numRegex = /^\d{13,16}$/;
 const zipRegex = /^\d{5}$/;
 const cvvRegex = /^\d{3}$/;
@@ -279,6 +284,11 @@ function validCreditCard(){
     validCardCvv(cvvRegex, creditCardCvvError);
     validCardZip(zipRegex, creditCardZipError);
     validCardNum(numRegex, creditCardNumError);
+    if(validCardCvv(cvvRegex, creditCardCvvError) &&
+        validCardZip(zipRegex, creditCardZipError) &&
+        validCardNum(numRegex, creditCardNumError)){
+        return true;
+    }
 }
 
 $('button[type="submit"]').on('click', (e) => {
@@ -300,6 +310,18 @@ $('button[type="submit"]').on('click', (e) => {
         validCreditCard();
     }
 
+    // reload page if no errors exist
+    if(!$('.nameWarning').length &&
+        !$('.mailWarning').length &&
+        !$('.activityWarning').length &&
+        !$('.creditCardNumWarning').length &&
+        !$('.creditCardZipWarning').length &&
+        !$('.creditCardCvvWarning').length &&
+        !$('.initMailWarning').length){
+        location.reload();
+    }
+
+    // go back to top if there are errors
     window.scrollTo(0, 0);
 })
 

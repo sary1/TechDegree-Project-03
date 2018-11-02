@@ -160,7 +160,8 @@ button:hover {
 .activityWarning,
 .creditCardNumWarning,
 .creditCardZipWarning,
-.creditCardCvvWarning {
+.creditCardCvvWarning,
+.initMailWarning {
 	color: white;
 	text-align: center;
 	background: rgba(231, 76, 60, 0.5);

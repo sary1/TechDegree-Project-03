@@ -117,3 +117,14 @@ $('.activities label input').on('click', (e) => {
    //      console.log(timeMatch)
    // }
 */
+
+/*
+if(!$('#mail').val() && $('.initMailWarning').length === 0 && $('.mailWarning').length === 0){
+        $('#mail').css('border', '2px solid red');
+        $('#mail').after(mailError);
+        return;
+    }
+    if($('#mail').val()) {
+        $('.initMailWarning').remove();
+    }
+*/
