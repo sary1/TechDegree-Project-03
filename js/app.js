@@ -196,25 +196,32 @@ function validNameInput(){
     if(inputValue && $('.nameWarning').length > 0) {
         $('#name').css('border', 'none');
         $('.nameWarning').remove();
-        return true;
     }
 }
 
 // Check the email input validation
 function validMailInput(){
-    const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i
-    const mailVal = emailRegex.test($('#mail').val());
-    const mailError = "<p class='initMailWarning'>Please enter an Email</p>";
-    const secMailError = "<p class='mailWarning'>Email is not valid</p>";
-    if(!mailVal && $('.mailWarning').length === 0){
-        $('#mail').css('border', '2px solid red');
-        $('#mail').after(secMailError);
-    }
-    if(mailVal && $('.mailWarning').length > 0) {
-        $('#mail').css('border', 'none');
-        $('.mailWarning').remove();
-        return true;
-    }
+    if($('#mail').val()){
+        if($('.initMailWarning')) $('.initMailWarning').remove();
+        const emailRegex = /^[^@]+@[^@.]+\.[a-z]+$/i
+        const mailVal = emailRegex.test($('#mail').val());
+        const secMailError = "<p class='mailWarning'>Email is not valid</p>";
+        if(!mailVal && $('.mailWarning').length === 0){
+            $('#mail').css('border', '2px solid red');
+            $('#mail').after(secMailError);
+        }
+        if(mailVal && $('.mailWarning').length > 0) {
+            $('#mail').css('border', 'none');
+            $('.mailWarning').remove();
+        }
+    } else {
+        const mailError = "<p class='initMailWarning'>Please enter an Email</p>";
+        if($('mailWarning')) $('.mailWarning').remove();
+        if($('.initMailWarning').length === 0){
+            $('#mail').css('border', '2px solid red');
+            $('#mail').after(mailError);
+        }
+    };
 }
 
 // Check the activity inputs validation
@@ -229,7 +236,6 @@ function validActivityInput(){
     }
     if (activity.indexOf(true) !== -1 && $('.activityWarning').length > 0){
         $('.activityWarning').remove();
-        return true;
     }
 }
 
@@ -242,7 +248,6 @@ function validCardNum(numRegex, creditCardNumError){
     if(numRegex.test($('#cc-num').val()) && $('.creditCardNumWarning').length > 0){
         $('#cc-num').css('border', 'none');
         $('.creditCardNumWarning').remove();
-        return true;
     }
 }
 
@@ -255,7 +260,6 @@ function validCardZip(zipRegex, creditCardZipError){
     if(zipRegex.test($('#zip').val()) && $('.creditCardZipWarning').length > 0){
         $('#zip').css('border', 'none');
         $('.creditCardZipWarning').remove();
-        return true;
     }
 }
 
@@ -268,7 +272,6 @@ function validCardCvv(cvvRegex, creditCardcvvError){
     if(cvvRegex.test($('#cvv').val()) && $('.creditCardCvvWarning').length > 0){
         $('#cvv').css('border', 'none');
         $('.creditCardCvvWarning').remove();
-        return true;
     }
 }
 
@@ -287,7 +290,6 @@ function validCreditCard(){
     if(validCardCvv(cvvRegex, creditCardCvvError) &&
         validCardZip(zipRegex, creditCardZipError) &&
         validCardNum(numRegex, creditCardNumError)){
-        return true;
     }
 }
 
@@ -336,8 +338,8 @@ $('button[type="submit"]').on('click', (e) => {
 $('#name').on('input', () => {validNameInput();})
 $('#name').on('focusout', () => {validNameInput();})
 
+// $('#mail').on('keydown', () => {validMailInput();})
 $('#mail').on('input', () => {validMailInput();})
-$('#mail').on('keydown', () => {validMailInput();})
 
 $('#cc-num').on('input', () => {validCardNum(numRegex, creditCardNumError);})
 $('#cc-num').on('keydown', () => {validCardNum(numRegex, creditCardNumError);})
