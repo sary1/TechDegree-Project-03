@@ -338,7 +338,6 @@ $('button[type="submit"]').on('click', (e) => {
 $('#name').on('input', () => {validNameInput();})
 $('#name').on('focusout', () => {validNameInput();})
 
-// $('#mail').on('keydown', () => {validMailInput();})
 $('#mail').on('input', () => {validMailInput();})
 
 $('#cc-num').on('input', () => {validCardNum(numRegex, creditCardNumError);})
